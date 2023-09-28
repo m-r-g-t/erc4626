@@ -1,0 +1,38 @@
+name: erc4626indexer
+description: ERC-4626 indexer
+networks:
+  - id: 1 # Ethereum Mainnet
+    start_block: 10861674
+    contracts:
+      - name: ERC4626
+        abi_file_path: abis/ERC4626.json
+        address: "0x4937A209D4cDbD3ecD48857277cfd4dA4D82914c" #xMPL
+        handler: src/EventHandlers.ts
+        events:
+          - event: "Approval"
+            requiredEntities:
+              - name: "Share"
+                labels:
+                  - "ownerShareChanges"
+          - event: "Transfer"
+            requiredEntities:
+              - name: "Share"
+                labels:
+                  - "senderShareChanges"
+                  - "receiverShareChanges"
+          - event: "Deposit"
+            requiredEntities:
+              - name: "Share"
+                labels:
+                  - "senderShareChanges"
+              - name: "VaultAsset"
+                labels:
+                  - "vaultAssetChanges"
+          - event: "Withdraw"
+            requiredEntities:
+              - name: "Share"
+                labels:
+                  - "senderShareChanges"
+              - name: "VaultAsset"
+                labels:
+                  - "vaultAssetChanges"

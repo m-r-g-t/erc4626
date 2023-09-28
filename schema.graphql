@@ -1,0 +1,9 @@
+type Share @entity {
+  id: ID!
+  approval: BigInt!
+  balance: BigInt!
+}
+type VaultAsset @entity {
+  id: ID!
+  balance: Share!
+}
